@@ -2,6 +2,7 @@ from Customer import Customer
 from ReadCSVFile import ReadCSVFile
 from DBSetup import DBSetup
 from DatabaseGetData import DatabaseGetData
+from unittest.mock import MagicMock
 
 class CustomerDatabaseMapping:
 
@@ -52,13 +53,37 @@ class CustomerDatabaseMapping:
             allCustomers.append(customer)
         return allCustomers
 
+    def CustomerFromStub(self):
+        readFile = ReadCSVFile()
+
+        return readFile.getFileDataForStub()
+
+    def CustomerFromMock(self):
+        mockdata = [['test@yahoo.com', 'Samuel', 'Lip', '1234']]
+
+        readFile = MagicMock(return_value=mockdata)
+        return readFile()
+
+           
+    def CustomerFromFake(self):
+        readFile = ReadCSVFile()
+
+        return readFile.getFileDataForFake()
+
+    def testData(self):
+
+        expected = [['test@yahoo.com', 'Samuel', 'Lip', '1234']]
+    
+
 def main():
     dbSetup = DBSetup()
     customerDatabaseMapping = CustomerDatabaseMapping(dbSetup)
+    dbExecuteSQL = DBExecuteSQL()
     customerDatabaseMapping.customerDataBaseSetup()
     print(customerDatabaseMapping.getCustomerData())
     allCustomers = customerDatabaseMapping.createAllCustomers()
     print(len(allCustomers))
+    print(customerDatabaseMapping.CustomerFromStub())
 
 if __name__ == "__main__":
     main()

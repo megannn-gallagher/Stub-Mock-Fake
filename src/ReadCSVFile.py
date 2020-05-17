@@ -1,4 +1,5 @@
 import csv
+
 class ReadCSVFile :
 
     filePathPrefix = "resource/"
@@ -11,3 +12,9 @@ class ReadCSVFile :
                 fileData.append(row)
         return fileData
 
+    def getFileDataForStub(self):
+        return [['test@yahoo.com', 'Samuel', 'Lip', '1234']]
+
+    def getFileDataForFake(self):
+        
+        return self.getFileData("entities/", "CustomerForFake.csv")
